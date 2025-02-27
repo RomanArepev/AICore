@@ -12,8 +12,8 @@ class FreshDeskConfig(BaseModel):
 class FreshDeskIntegration:
     def __init__(self, llm: ChatOpenAI = None):
         # Create Base64 encoded API key from username and password
-        user = "YZR3zoq1VN8cesmw1lY"
-        password = "Y"
+        user = ""
+        password = ""
         credentials = base64.b64encode(f"{user}:{password}".encode()).decode()
         
         self.config = FreshDeskConfig(
