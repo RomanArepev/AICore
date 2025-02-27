@@ -17,7 +17,7 @@ class FreshDeskIntegration:
         credentials = base64.b64encode(f"{user}:{password}".encode()).decode()
         
         self.config = FreshDeskConfig(
-            domain=os.getenv("FRESHDESK_DOMAIN", "itsgroup.freshdesk.com"),
+            domain=os.getenv("FRESHDESK_DOMAIN", "***group.freshdesk.com"),
             api_key=credentials
         )
         self.llm = llm or ChatOpenAI(model="gpt-3.5-turbo", temperature=0.01)
