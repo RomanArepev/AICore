@@ -1,4 +1,4 @@
-# AI Query API
+# iTS AI Query API
 
 ## Description
 AI Query API is a FastAPI-based application designed to handle natural language queries using advanced AI models. It integrates with OpenAI's GPT-3.5-turbo for text processing, FAISS for vector storage, and provides additional features such as product pricing calculations and Freshdesk integration.
