@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iTSsistant - Your Intelligent Assistant</title>
+    <style>
+        /* Основные стили */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1a1a1a; /* Чёрный фон */
+            color: #f0f0f0; /* Белый текст */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #2a2a2a; /* Тёмно-серый контейнер */
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #ff8c42; /* Бледно-оранжевый */
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        /* Форма */
+        #queryForm {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        input[type="text"] {
+            padding: 12px;
+            border: 2px solid #444;
+            border-radius: 8px;
+            background-color: #333;
+            color: #f0f0f0;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            border-color: #ff8c42; /* Бледно-оранжевый при фокусе */
+        }
+
+        button {
+            padding: 12px;
+            background-color: #ff8c42; /* Бледно-оранжевый */
+            color: #1a1a1a; /* Чёрный текст */
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #e67e3f; /* Темнее оранжевый при наведении */
+        }
+
+        /* Ответ */
+        #response {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #333;
+            border: 2px solid #444;
+            border-radius: 8px;
+            color: #f0f0f0;
+            font-size: 14px;
+            height: 150px;
+            overflow-y: auto;
+            text-align: left;
+            transition: opacity 0.3s ease;
+            white-space: pre-wrap; /* Сохраняем пробелы и переносы строк */
+        }
+
+        #response.loading {
+            opacity: 0.7;
+        }
+
+        /* Анимации */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="container fade-in">
+        <h1>iTSsistant</h1>
+        <form id="queryForm">
+            <input type="text" name="user_input" placeholder="Ask me anything..." required>
+            <button type="submit">Submit</button>
+        </form>
+        <div id="response">
+            {{ response_text }}
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('queryForm');
+        const responseDiv = document.getElementById('response');
+
+        // Функция для постепенного вывода текста
+        function typeText(element, text, speed = 30) {
+            let i = 0;
+            element.innerText = ''; // Очищаем содержимое перед началом печати
+            function type() {
+                if (i < text.length) {
+                    element.innerText += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const userInput = form.user_input.value;
+
+            // Показываем состояние загрузки
+            responseDiv.classList.add('loading');
+            responseDiv.innerText = 'Thinking...';
+
+            try {
+                const response = await fetch('http://79.132.143.108:8000/query', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ text: userInput })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    const answer = data.answer || 'No answer received';
+                    typeText(responseDiv, answer); // Постепенно выводим ответ
+                } else {
+                    responseDiv.innerText = 'Error: Unable to get a response from the server.';
+                }
+            } catch (error) {
+                responseDiv.innerText = 'Error: ' + error.message;
+            } finally {
+                responseDiv.classList.remove('loading');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+1) Key word - Project "New School"
+Devices in Project "New School": Xerox C235 Color Multifunction Printer, Xerox PrimeLink C9070 Series Printer, Kyocera FS-1025MFP,  Kyocera MA2100cfx
+
+
+
+
+2) Key word - Princity:
+Princity on premise installation Linux 
+This instruction is made on Ubuntu 22.04.1 LTS 
+Before installations 
+1. Download Princity installation package 
+2. For next steps you need super user access 
+3. Be sure to have correct permissions to installations folders and files 
+Extract files and copy it to opt folder. OPT folder is recommended to use it for installation and store 
+PrinCity files. Use ./install.sh to start installation process.
+
+
+
+3) Key word - Umango
+Umango Minimum Requirements 
+It is recommended that you run Umango on no less than the following: 
+• 64-bit Windows (Server OS preferred) 
+• Microsoft® .NET Framework 4.7 or higher 
+• Memory: 4GB minimum. 8GB recommended 
+• Disk space: 3GB for application plus 10GB+ of available space 
+• Visual C++ 2015 
+• SQL Server 2017 Express
+
+
+
+
+4) Key word - PaperCut system requirements
+Info from here https://www.papercut.com/products/mf/system-requirements/
+Microsoft Windows (64-bit) Server 2025 / 2022 / 2019 / 2016 / Windows 11 / Windows 10
+Apple macOS 11 (Big Sur) or later
+Microsoft Clustering Services supported at all application layers
+Most modern Linux (64-bit) distributions including Red Hat 8.0+, Ubuntu 16.0+, Novell SUSE 15.0+, Debian 11.0+, and others (requires GNU glibc 2.28 or higher)
+Memory
+2GB minimum supported
+https://www.papercut.com/products/mf/system-requirements/
+
+
+
